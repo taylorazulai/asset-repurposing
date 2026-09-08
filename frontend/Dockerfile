@@ -8,7 +8,6 @@ RUN npm ci
 
 COPY . .
 
-ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ENV NODE_ENV=production
 
 RUN npm run build
@@ -19,7 +18,6 @@ FROM node:20-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static

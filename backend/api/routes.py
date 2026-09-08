@@ -6,7 +6,7 @@ from pipeline.dag import run_pipeline
 router = APIRouter(prefix="/pipeline", tags=["pipeline"])
 
 
-@router.post("/", response_model=PipelineOutput)
+@router.post("", response_model=PipelineOutput)
 async def pipeline(payload: IngestPayload) -> PipelineOutput:
     """Trigger the asset decomposition pipeline."""
     try:

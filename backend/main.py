@@ -7,6 +7,7 @@ app = FastAPI(
     title="Asset Repurposing Pipeline",
     description="Decompose a source document into executive briefs, social snippets, and slide decks.",
     version="0.1.0",
+    redirect_slashes=False,
 )
 
 app.add_middleware(

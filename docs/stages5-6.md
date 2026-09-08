@@ -30,12 +30,12 @@
 5. Typed fetch wrapper
   - frontend/lib/api.ts should POST /pipeline with { source_text: string }, get back a PipelineOutput, and return it typed.
   - All API calls go through this wrapper. No raw fetch() calls in components.
-  - Use NEXT_PUBLIC_BACKEND_URL env var (default http://localhost:8000) so it works under docker-compose.
+   - Use a relative path `/api/pipeline` and a Next.js Route Handler proxy so the frontend never exposes the backend URL to the browser. The proxy reads the server-only `BACKEND_URL` env var (default http://localhost:8000 for local dev, http://backend:8000 under docker-compose).
 
 ## Stage 5: Next.js Scaffold — Deliverables
 1. frontend/package.json with pinned, modern versions: Next.js 14+ (App Router), React 18, TypeScript ≥5, Tailwind CSS 3+, plus @types/node, @types/react.
 2. frontend/tsconfig.json configured for Next.js (use the published next defaults via npx create-next-app as reference, but reproduce the config inline — don't ship the agent's "create-next-app added these magically" output).
-3. frontend/next.config.js with NEXT_PUBLIC_BACKEND_URL exposed and standalone output mode for Cloud Run deployment readiness.
+3. frontend/next.config.js with standalone output mode for Cloud Run deployment readiness. The backend URL is not exposed in the browser bundle; it is resolved server-side by the proxy route.
 4. frontend/Dockerfile (multi-stage Node build → standalone runner) and frontend/.dockerignore.
 5. frontend/app/layout.tsx with proper metadata (title: "Asset Repurposing Pipeline").
 6. frontend/app/page.tsx as the entry route — initially a placeholder that the Stage 6 components will populate.

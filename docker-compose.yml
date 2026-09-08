@@ -21,8 +21,5 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    command: npm run dev
+      - BACKEND_URL=http://backend:8000
+    command: node server.js
