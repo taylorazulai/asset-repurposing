@@ -1,0 +1,28 @@
+services:
+  backend:
+    build: ./backend
+    container_name: asset-pipeline-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - EDENAI_API_KEY=${EDENAI_API_KEY}
+      - EDENAI_BASE_URL=${EDENAI_BASE_URL:-https://api.edenai.run/v3}
+      - EDENAI_MODEL=${EDENAI_MODEL:-google/gemini-3.8-flash}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
+    env_file:
+      - backend/.env
+    volumes:
+      - ./backend:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  frontend:
+    build: ./frontend
+    container_name: asset-pipeline-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    command: npm run dev
