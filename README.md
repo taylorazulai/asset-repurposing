@@ -166,9 +166,9 @@ The screenshots below show a real end-to-end run against a long source document:
 
 ![X / Twitter social snippet](screenshots/local-asset-social-snippet-x-twitter.png)
 
-### Slide deck with speaker notes
+### Slide deck with tiered bullets and speaker notes
 
-![Slide deck with bullets and speaker notes](screenshots/local-asset-slide-deck-bullets-with-speaker-notes.png)
+![Slide deck with tiered bullets and speaker notes](screenshots/local-asset-slide-deck-tiered-bullets-with-speaker-notes.png)
 
 ## Usage
 

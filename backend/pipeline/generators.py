@@ -51,12 +51,29 @@ Core context:
 """
 
 
-SLIDE_DECK_PROMPT = """Using the following Core Context, generate a slide deck outline with a title slide and 4-6 content slides.
+SLIDE_DECK_PROMPT = """Using the following Core Context, generate a professional slide deck suitable for a senior leadership audience.
+
+Include:
+- a title slide,
+- an agenda slide,
+- 3-5 content slides,
+- a recap / key-takeaways slide.
+
+Each content slide should have 2-4 main bullets. Each main bullet may have 0-3 sub-bullets — only when the source material naturally elaborates hierarchically. Avoid filler. Each slide's speaker_notes should be a 30-60 second talk track.
+
 Return ONLY valid JSON matching this exact schema:
 {{
   "title": "...",
   "slides": [
-    {{"title": "...", "bullets": ["...", "..."], "speaker_notes": "..."}},
+    {{
+      "title": "...",
+      "bullets": [
+        {{"text": "Main bullet", "sub": ["supporting point", "supporting point"]}},
+        {{"text": "Main bullet", "sub": []}},
+        ...
+      ],
+      "speaker_notes": "..."
+    }},
     ...
   ]
 }}

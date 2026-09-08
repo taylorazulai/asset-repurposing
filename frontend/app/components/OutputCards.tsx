@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { PipelineOutput, SocialSnippet, Slide } from "@/lib/types";
+import { PipelineOutput, SocialSnippet, Slide, BulletPoint } from "@/lib/types";
 import { TruncationBanner } from "./TruncationBanner";
 
 interface OutputCardsProps {
@@ -197,10 +197,17 @@ function SocialSnippetCard({ snippet }: { snippet: SocialSnippet }) {
   );
 }
 
+function formatBulletForCopy(bullet: BulletPoint, index: number): string {
+  const main = `${index + 1}. ${bullet.text}`;
+  const subs = bullet.sub.map((sub) => `   - ${sub}`).join("\n");
+  return subs ? `${main}\n${subs}` : main;
+}
+
 function SlideCard({ index, slide }: { index: number; slide: Slide }) {
   const copyText = [
     slide.title,
-    ...slide.bullets,
+    "",
+    ...slide.bullets.map((bullet, i) => formatBulletForCopy(bullet, i)),
     "",
     `Speaker notes: ${slide.speaker_notes}`,
   ].join("\n");
@@ -213,10 +220,19 @@ function SlideCard({ index, slide }: { index: number; slide: Slide }) {
         </h4>
         <CopyButton text={copyText} label={`Slide ${index + 1}`} />
       </div>
-      <ul className="list-disc list-inside space-y-1 mb-2">
+      <ul className="list-disc list-inside space-y-2 mb-2">
         {slide.bullets.map((bullet, j) => (
           <li key={j} className="text-[#1A1A1A]">
-            {bullet}
+            <span className="font-medium">{bullet.text}</span>
+            {bullet.sub.length > 0 && (
+              <ul className="list-disc list-inside ml-5 mt-1 space-y-1">
+                {bullet.sub.map((sub, k) => (
+                  <li key={k} className="text-muted text-sm">
+                    {sub}
+                  </li>
+                ))}
+              </ul>
+            )}
           </li>
         ))}
       </ul>

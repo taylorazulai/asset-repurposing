@@ -82,7 +82,9 @@ def _make_fake_chat_completion(config: Dict[str, Any] = None) -> Callable:
                         "slides": [
                             {
                                 "title": "Slide 1",
-                                "bullets": ["bullet1"],
+                                "bullets": [
+                                    {"text": "bullet1", "sub": ["sub-bullet1"]}
+                                ],
                                 "speaker_notes": "Notes.",
                             }
                         ],
@@ -152,12 +154,27 @@ def test_slide_deck_valid():
         slides=[
             schemas.Slide(
                 title="Slide 1",
-                bullets=["b1"],
+                bullets=[
+                    schemas.BulletPoint(text="b1", sub=["s1"]),
+                    schemas.BulletPoint(text="b2", sub=[]),
+                ],
                 speaker_notes="notes",
             )
         ],
     )
     assert len(deck.slides) == 1
+    assert deck.slides[0].bullets[0].sub == ["s1"]
+
+
+def test_slide_bullet_sub_validation():
+    with pytest.raises(ValueError):
+        schemas.Slide(
+            title="Slide 1",
+            bullets=[
+                schemas.BulletPoint(text="b1", sub=["s1", "s2", "s3", "s4"]),
+            ],
+            speaker_notes="notes",
+        )
 
 
 def test_pipeline_output_partial_results():

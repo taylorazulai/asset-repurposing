@@ -1,0 +1,180 @@
+{
+  "title": "Master the Table: Play, Pedagogy, and Dungeon Mastering",
+  "slides": [
+    {
+      "title": "Master the Table: Play, Pedagogy, and Dungeon Mastering",
+      "bullets": [
+        {
+          "text": "A structured framework for collaborative storytelling and table leadership",
+          "sub": [
+            "Shifting perspective from competitive gaming to shared narrative generation",
+            "Empowering facilitators to teach and retain new players effortlessly"
+          ]
+        },
+        {
+          "text": "Designed for new adventurers, aspiring Dungeon Masters, and veteran facilitators",
+          "sub": []
+        }
+      ],
+      "speaker_notes": "Welcome, everyone. Today we are exploring the architecture of tabletop role-playing games through the lens of Dungeons & Dragons. Whether you are stepping behind the DM screen for the first time or refining your facilitation approach for newcomers, this session delivers actionable frameworks for running engaging, low-friction, and player-centered campaigns."
+    },
+    {
+      "title": "Agenda & Session Roadmap",
+      "bullets": [
+        {
+          "text": "The Collaborative Paradigm",
+          "sub": [
+            "Redefining the DM as an impartial facilitator rather than an adversary"
+          ]
+        },
+        {
+          "text": "Progressive Onboarding & Pedagogy",
+          "sub": [
+            "Replacing rulebook overload with experiential learning"
+          ]
+        },
+        {
+          "text": "The d20 Engine & Failing Forward",
+          "sub": [
+            "Transforming mechanics and failure into dramatic momentum"
+          ]
+        },
+        {
+          "text": "Adaptive Facilitation & Encounter Architecture",
+          "sub": [
+            "Balancing structured prep with emergent player agency"
+          ]
+        }
+      ],
+      "speaker_notes": "Here is our roadmap for today's briefing. We will begin by dismantling the adversarial mindset often associated with running a game, examine pedagogical models to onboard beginners without cognitive overload, unpack the resolution mechanics that drive tension, and conclude with practical methods for dynamic encounter facilitation."
+    },
+    {
+      "title": "The Collaborative Paradigm: Reframing the Table",
+      "bullets": [
+        {
+          "text": "Facilitation over competition",
+          "sub": [
+            "The Dungeon Master functions as the world's architect and neutral referee",
+            "Success is measured by collective investment, not player elimination"
+          ]
+        },
+        {
+          "text": "Shared narrative ownership",
+          "sub": [
+            "Players steer outcomes through deliberate choices and calculated risks",
+            "Facilitators build evocative scenarios, leaving solutions open-ended"
+          ]
+        },
+        {
+          "text": "Cultivating psychological safety and engagement",
+          "sub": [
+            "Establish table norms and explicit expectations before roll-call"
+          ]
+        }
+      ],
+      "speaker_notes": "The foundation of sustainable D&D is recognizing that the DM is not the antagonist. When facilitators abandon the 'me versus them' mentality, the game transforms into an authentic collaborative exercise. Your role is to set the scene, arbitrate rules fairly, and establish a welcoming environment where players feel safe taking creative narrative risks."
+    },
+    {
+      "title": "Progressive Onboarding: Teaching Through Play",
+      "bullets": [
+        {
+          "text": "Experiential onboarding over rulebook memorization",
+          "sub": [
+            "Introduce the core loop: describe environment, listen to intent, call for roll",
+            "Withhold secondary mechanics until relevant gameplay moments emerge"
+          ]
+        },
+        {
+          "text": "Pre-configured tools to minimize friction",
+          "sub": [
+            "Utilize curated character sheets with color-coded or highlighted action zones",
+            "Rely on digital toolsets and quick-reference aids to lower barrier to entry"
+          ]
+        },
+        {
+          "text": "The 'Show, Don't Tell' tutorial approach",
+          "sub": [
+            "Design low-stakes opening encounters that scaffold basic checks and combat"
+          ]
+        }
+      ],
+      "speaker_notes": "Handing a novice player a 300-page manual creates immediate cognitive overload and analytical paralysis. Effective onboarding mirrors modern user design: abstract the complexity, introduce mechanics sequentially, and let players experience the core loop first-hand. Teach the basic mechanics in the moment they are needed, rather than front-loading theory."
+    },
+    {
+      "title": "The Core Engine: Mechanics, Agency, and Failing Forward",
+      "bullets": [
+        {
+          "text": "Demystifying the d20 resolution system",
+          "sub": [
+            "Core formula: d20 roll + situational modifier versus Target Difficulty (DC/AC)",
+            "Predictable mechanics provide clarity while maintaining dramatic uncertainty"
+          ]
+        },
+        {
+          "text": "Failure as narrative propulsion",
+          "sub": [
+            "Unsuccessful checks should alter tactical conditions, never halt progression",
+            "Embrace 'success with a cost' to preserve forward story momentum"
+          ]
+        },
+        {
+          "text": "Protecting player agency",
+          "sub": [
+            "Reward novel, non-standard problem-solving beyond the character sheet"
+          ]
+        }
+      ],
+      "speaker_notes": "At its heart, the game runs on a single elegant mechanism: rolling a twenty-sided die against a target number. When a player fails a check, the story must never come to an abrupt halt. Instead, treat low rolls as catalysts for complication, dramatic irony, or environmental shifts. Failure is not a punishment—it is an engine for compelling drama."
+    },
+    {
+      "title": "Adaptive Facilitation: Prepping Situations, Not Plots",
+      "bullets": [
+        {
+          "text": "Prepare scenarios, avoid pre-scripted outcomes",
+          "sub": [
+            "Design compelling problems with clear NPC motives rather than rigid paths",
+            "Allow player decisions to organically reshape the world state"
+          ]
+        },
+        {
+          "text": "Dynamic and balanced encounter design",
+          "sub": [
+            "Incorporate dynamic objectives beyond simple combat attrition",
+            "Adjust dials on the fly: reinforce threats, manipulate terrain, or change win conditions"
+          ]
+        },
+        {
+          "text": "Structured improvisation",
+          "sub": [
+            "Use modular tables, name lists, and adaptable stat blocks to support sudden detours"
+          ]
+        }
+      ],
+      "speaker_notes": "A common pitfall for emerging facilitators is over-preparing rigid storylines. When players inevitably diverge from the expected path, rigid structures crumble. Prepare problems, environments, and adversary motives instead. When you plan modular situations, you can comfortably improvise in any direction your players decide to explore."
+    },
+    {
+      "title": "Key Takeaways: Leading Memorable Sessions",
+      "bullets": [
+        {
+          "text": "Lead as a neutral steward of the story",
+          "sub": [
+            "Champion player creativity and maintain an encouraging, collaborative tone"
+          ]
+        },
+        {
+          "text": "Iterate learning gradually at the table",
+          "sub": [
+            "Focus on action and resolution first; introduce edge-case rules organically"
+          ]
+        },
+        {
+          "text": "Prioritize narrative velocity over rule adherence",
+          "sub": [
+            "Make decisive rulings in the moment to keep the energy high and the table engaged"
+          ]
+        }
+      ],
+      "speaker_notes": "To recap: great Dungeon Mastering is not about memorizing every edge-case ruling; it is about facilitating an engaging, cooperative experience. Support your players, scaffold their learning, keep the narrative moving forward even when the dice betray them, and prioritize shared enjoyment above mechanical dogma. Thank you, and let's roll for initiative."
+    }
+  ]
+}

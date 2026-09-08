@@ -18,7 +18,7 @@ The Asset Repurposing Pipeline is a complete, end-to-end system that ingests a s
 - **Integration:** Live verified with a real `EDENAI_API_KEY` against a 500+ word source; Docker Compose stack builds and runs both services; negative cases (min-length, truncation, small happy path) confirmed.
 - **Documentation:** Root README with hero/overview, stack table, ASCII architecture diagram, ADR index, quick-start, environment variable table, known limits, and a **Live Demo section with real UI screenshots** against a truncated source document. The source doc is referenced at `assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`. Five decision records in `docs/decisions/` (including the new `2026-09-08-persona-driven-prompts.md`).
 
-Remaining next steps are documented in the README and include Cloud Run deployment, frontend test suite, and retry-specific unit tests. Stage 9 will refine the slide-deck schema with tiered bullet hierarchy.
+Remaining next steps are documented in the README and include Cloud Run deployment, frontend test suite, and retry-specific unit tests. Stage 9 (slide-deck tiered bullet hierarchy) is now complete.
 
 ---
 
@@ -537,5 +537,57 @@ Proceed to **Stage 9: Schema & Slide Deck Refinement**:
 4. Update `frontend/app/components/OutputCards.tsx` to render nested bullets and copy the entire slide (title + bullets + speaker notes).
 5. Update backend tests and fixtures to the new `BulletPoint` shape and add a `max_length=3` validation test.
 6. Capture a post-migration live D&D Handbook baseline and save it as `docs/baselines/2026-09-09-post-stage9-slide-deck.json`.
+
+---
+
+## Stage 9: Schema & Slide Deck Refinement
+
+**Status:** Completed
+
+### What Was Changed / Executed
+
+- **Schema migration:**
+  - Introduced `BulletPoint` in `backend/core/schemas.py` with `text: str` and `sub: List[str]` (max_length=3).
+  - Changed `Slide.bullets` from `List[str]` to `List[BulletPoint]`.
+  - Mirrored the schema exactly in `frontend/lib/types.ts` with inline `// Mirrors backend/core/schemas.py:BulletPoint` and `// Mirrors backend/core/schemas.py:Slide` comments.
+- **Prompt rewrite:**
+  - Updated `backend/pipeline/generators.py:SLIDE_DECK_PROMPT` to request a title slide, agenda slide, 3-5 content slides, and a recap/key-takeaways slide, with 2-4 main bullets per content slide and 0-3 sub-bullets per main bullet when the source material naturally elaborates hierarchically.
+  - Kept generator temperature at 0.7 as instructed; no separate tuning pass.
+- **Frontend rendering & copy:**
+  - Updated `frontend/app/components/OutputCards.tsx` to render nested bullets: main bullets as `font-medium` top-level `<li>` items and sub-bullets as nested `text-muted text-sm` `<li>` items.
+  - Updated the slide copy button to copy the entire slide (title + formatted bullets including sub-bullets + speaker notes) rather than just the first bullet.
+- **Tests and fixtures:**
+  - Updated `_make_fake_chat_completion` in `backend/tests/test_pipeline.py` so the slide-deck branch returns the new `BulletPoint`-shaped JSON.
+  - Updated `test_slide_deck_valid` to use the new shape with one bullet containing a sub-bullet and one with an empty `sub` list.
+  - Added `test_slide_bullet_sub_validation` confirming that `BulletPoint.sub` rejects more than 3 sub-bullets via `max_length=3`.
+- **Documentation:**
+  - Updated `README.md` to reference the new screenshot filename `local-asset-slide-deck-tiered-bullets-with-speaker-notes.png`.
+  - Saved pre- and post-migration baselines at `docs/baselines/2026-09-09-pre-stage9-slide-deck.json` and `docs/baselines/2026-09-09-post-stage9-slide-deck.json`.
+
+### Major Decisions
+
+- Chose the two-level explicit `BulletPoint` structure (main bullet + 0-3 sub-bullets) over deeper nesting because most professional decks don't exceed two visual indentation levels.
+- Kept `speaker_notes` as a flat string on `Slide`; no change to its schema.
+- Did not over-constrain the prompt on the first iteration. The live output included a few extra sub-bullets on title/agenda slides, which is acceptable for the MVP; future tuning can tighten slide-type-specific norms.
+- Preserved `asyncio.gather(..., return_exceptions=True)` semantics in `dag.py`; the slide-deck generator path still participates in the same best-effort failure pattern.
+
+### Verification
+
+- `pytest -v` in `backend/` — **15 passed** (14 prior + new `test_slide_bullet_sub_validation`).
+- `npm run build` in `frontend/` — **clean build** with `/api/pipeline` as a dynamic route.
+- Live `POST /pipeline` against the D&D Handbook (38,886 characters, under the 50,000 cap) returned:
+  - A 7-slide deck: title, agenda, 5 content slides, and recap/key-takeaways.
+  - Main bullets with nested sub-bullets (e.g., Slide 1 "A structured framework..." had two sub-bullets; content slides had 1-3 sub-bullets per relevant main bullet).
+  - All three assets populated; `errors: {}`.
+  - Post-migration baseline saved to `docs/baselines/2026-09-09-post-stage9-slide-deck.json`.
+
+### Deferred Tasks / Visual Artifacts
+
+- Updated screenshot file `screenshots/local-asset-slide-deck-tiered-bullets-with-speaker-notes.png` is referenced in `README.md` but must be captured in the browser and committed by the reviewer.
+- Prompt tuning to tighten sub-bullet usage per slide type (title/agenda should rarely have sub-bullets) is deferred to a later polish pass.
+
+### Project Status
+
+Stages 1–9 complete. The pipeline now supports tiered bullet hierarchy in slide decks, persona-driven prompts, a distinct manuscript-style UI palette, and a 50,000-character input cap. Remaining known next steps are documented in `README.md` Known Limits & Next Steps: Cloud Run deployment, frontend test suite, retry-specific fail-then-succeed tests, and document chunking for sources >50,000 characters.
 
 ---
