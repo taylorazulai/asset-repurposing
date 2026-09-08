@@ -1,0 +1,59 @@
+{
+  "title": "The Complete Dungeons & Dragons Handbook: Play, Pedagogy, and Facilitation",
+  "slides": [
+    {
+      "title": "The Complete Dungeons & Dragons Handbook",
+      "bullets": [
+        "A structured methodology for modern collaborative storytelling and table facilitation",
+        "Targeted guidance for beginner players, aspiring Dungeon Masters, and veteran educators",
+        "Actionable strategies to lower cognitive load and accelerate player onboarding"
+      ],
+      "speaker_notes": "Welcome everyone. Today we are exploring a comprehensive, pedagogical approach to tabletop role-playing. D&D is not merely an entertainment product; it is an accessible framework for collaborative storytelling, creative problem solving, and social facilitation."
+    },
+    {
+      "title": "Rethinking the Role: Facilitation Over Competition",
+      "bullets": [
+        "The DM serves as an impartial referee and world architect, never an adversarial opponent",
+        "Player agency is the primary currency—narratives are co-authored, not pre-scripted",
+        "Table success is measured by collective narrative engagement rather than mechanical optimization"
+      ],
+      "speaker_notes": "The primary mental shift required for new tables is breaking the player-versus-DM misconception. The facilitator's duty is to present clear stakes, dynamic environments, and meaningful choices, empowering the party to shape outcomes organically."
+    },
+    {
+      "title": "Progressive Onboarding: The 'Show, Don't Tell' Pedagogy",
+      "bullets": [
+        "Avoid front-loading 300 pages of rules prior to the first game session",
+        "Deploy progressive micro-encounters that introduce one core mechanic at a time",
+        "Utilize pre-generated, role-driven character sheets to reduce upfront decision paralysis"
+      ],
+      "speaker_notes": "Adult learning principles show that hands-on, experiential learning significantly outperforms manual memorization. Treat level one as a tutorial sequence. Start with narrative interaction, introduce ability checks, and introduce tactical combat only when contextually relevant."
+    },
+    {
+      "title": "The d20 Resolution Loop: Reframing Failure as Momentum",
+      "bullets": [
+        "Standardize the core loop: Declare intent, determine difficulty, roll d20, adjudicate impact",
+        "Implement 'failing forward' so low rolls introduce complications rather than dead ends",
+        "Treat mechanical uncertainty as a dramatic engine to heighten stakes and drive character growth"
+      ],
+      "speaker_notes": "The d20 engine exists to introduce risk, not to punish. When a player fails an Athletics or Thieves' Tools check, the story must move forward with a complication—a dropped tool, a guard alerted, or a structural collapse—rather than a static, boring 'nothing happens.'"
+    },
+    {
+      "title": "Agile Dungeon Mastering: Preparation vs. Improvisation",
+      "bullets": [
+        "Prepare situations, faction goals, and environments rather than rigid, linear plots",
+        "Reward unexpected player problem-solving by leading with 'Yes, and...' or 'Yes, but...'",
+        "Prioritize narrative momentum and pacing over instantaneous rules-lookup during active play"
+      ],
+      "speaker_notes": "Effective game running is closely aligned with executive facilitation. Prepare modular building blocks—three NPCs with clear motivations, a dynamic environment, and an impending clock. This structure allows you to adapt instantly to player choices without losing control of the session."
+    },
+    {
+      "title": "Building a Sustainable Table Culture: Tooling and Safety",
+      "bullets": [
+        "Conduct a structured 'Session Zero' to align expectations, tone, and behavioral boundaries",
+        "Leverage accessible digital tooling, concise cheat sheets, and visual encounter maps",
+        "Cultivate an encouraging environment where curiosity, roleplay, and questions are celebrated"
+      ],
+      "speaker_notes": "Longevity at the gaming table depends on psychological safety and clear operational frameworks. Session Zero aligns thematic expectations and safety tools, ensuring players of all experience levels feel comfortable taking creative risks."
+    }
+  ]
+}

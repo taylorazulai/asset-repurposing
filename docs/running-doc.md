@@ -497,3 +497,45 @@ Portfolio-ready as of Stage 7. Stages 8 and 9 are now planned in `docs/plan.md` 
 **STOP.** Awaiting validation and / or reorientation before proceeding to **Stage 9: Schema & Slide Deck Refinement**.
 
 ---
+
+## Stage 8 Closeout & Pre-Stage-9 Baseline
+
+**Date:** 2026-09-09
+**Status:** Stage 8 closed; pre-migration baseline captured for Stage 9
+
+### Final Stage 8 Polishes
+
+- **UploadForm.tsx counter-color refinement:**
+  - Changed the dead `isUnderMin ? "text-muted" : "text-muted"` conditional in the live character counter to `isUnderMin ? "text-yellow-600 font-medium" : "text-muted"`.
+  - This gives users a visible "almost valid" feedback cue when the input is between 1 and 49 characters, while over-max input remains red (`text-warnText`) and valid input stays muted.
+  - Re-ran `npm run build` in `frontend/` — clean build.
+
+- **`_build_system_role()` empty-field fallback:**
+  - Hardened `_build_system_role()` in `backend/pipeline/generators.py` so it gracefully handles empty or missing `core_context.tone`, `themes`, or `audience`.
+  - Falls back to generic phrasing (`"the provided source material"`, `"the intended readers"`) and drops the themes clause entirely if no non-empty themes are present, preventing blank clauses in the composed system prompt.
+
+### Pre-Migration Baseline Capture
+
+- Ran a live `POST /pipeline` against the D&D Handbook (38,886 characters, under the new `50000` cap) before any Stage 9 schema changes.
+- Saved the current flat-bullet `slide_deck` response to `docs/baselines/2026-09-09-pre-stage9-slide-deck.json` for before/after comparison.
+- Baseline snapshot: 6 slides, each with 3 flat-string bullets, speaker notes per slide. This documents the shape before the `BulletPoint` / tiered-sub-bullet migration.
+
+### Persona-Driven Prompt Confirmation
+
+- The live D&D Handbook run confirmed the persona-driven prompt shift:
+  - Executive brief adopted McKinsey-style consulting prose applied to tabletop role-playing ("Dungeon Master," "tabletop role-playing," "player agency").
+  - Social snippets for LinkedIn and Twitter/X referenced the gaming domain directly ("300-page rulebook," "d20," "failing forward").
+  - Slide deck titles and bullets used facilitation/pedagogy terminology consistent with the source material.
+
+### Immediate Next Steps
+
+Proceed to **Stage 9: Schema & Slide Deck Refinement**:
+
+1. Introduce `BulletPoint` in `backend/core/schemas.py` with `text: str` and `sub: List[str]` (max_length=3); change `Slide.bullets` to `List[BulletPoint]`.
+2. Mirror the schema in `frontend/lib/types.ts`.
+3. Rewrite `SLIDE_DECK_PROMPT` to request title/agenda/3-5 content/recap slides with 2-4 main bullets and 0-3 sub-bullets.
+4. Update `frontend/app/components/OutputCards.tsx` to render nested bullets and copy the entire slide (title + bullets + speaker notes).
+5. Update backend tests and fixtures to the new `BulletPoint` shape and add a `max_length=3` validation test.
+6. Capture a post-migration live D&D Handbook baseline and save it as `docs/baselines/2026-09-09-post-stage9-slide-deck.json`.
+
+---

@@ -71,7 +71,7 @@ export function UploadForm({ onSubmit, loading }: UploadFormProps) {
               isOverMax
                 ? "text-warnText font-medium"
                 : isUnderMin
-                ? "text-muted"
+                ? "text-yellow-600 font-medium"
                 : "text-muted"
             }
           >
