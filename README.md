@@ -1,5 +1,10 @@
 # Asset Repurposing Pipeline
 
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Python 3.12](https://img.shields.io/badge/Python-3.12-blue.svg)
+![Next.js 16](https://img.shields.io/badge/Next.js-16-black.svg)
+![Pydantic v2](https://img.shields.io/badge/Pydantic-v2-E92063.svg)
+
 An automated, schema-enforced DAG pipeline that ingests a single canonical source document and decomposes it into parallel derivative assets — an executive brief, platform-specific social snippets, and a slide deck — while preserving brand voice, tone, and factual alignment. Built as a production-oriented portfolio piece demonstrating structured LLM output, async orchestration, and containerized deployment.
 
 ## Stack
