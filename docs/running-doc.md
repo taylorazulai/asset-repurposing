@@ -16,7 +16,7 @@ The Asset Repurposing Pipeline is a complete, end-to-end system that ingests a s
 - **Backend:** FastAPI service with Pydantic models, EdenAI-powered extraction and three parallel generators, retry/timeout logic, and a full pytest suite.
 - **Frontend:** Next.js 16 dashboard with a server-side proxy route, typed API wrapper, and responsive asset/error UI.
 - **Integration:** Live verified with a real `EDENAI_API_KEY` against a 500+ word source; Docker Compose stack builds and runs both services; negative cases (min-length, truncation, small happy path) confirmed.
-- **Documentation:** Root README with architecture diagram, ADR index, quick-start, and known limits; four decision records in `docs/decisions/`.
+- **Documentation:** Root README with hero/overview, stack table, ASCII architecture diagram, ADR index, quick-start, environment variable table, known limits, and a **Live Demo section with real UI screenshots** against a truncated source document. The source doc is referenced at `assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`. Four decision records in `docs/decisions/`.
 
 Remaining next steps are documented in the README and include Cloud Run deployment, frontend test suite, and retry-specific unit tests.
 
@@ -412,7 +412,8 @@ Proceed to **Stage 7: Integration & Verification**:
 - Updated `docker-compose.yml` so the frontend service uses the production standalone command `node server.js` instead of `npm run dev`, matching the multi-stage Dockerfile.
 - Verified the frontend proxy inside Docker correctly resolves `http://backend:8000` and returns a full `PipelineOutput`.
 - Live-tested negative cases: 10-character source rejected (`422` min-length), >MAX_SOURCE_CHARS source sets `core_context.truncated: true`, 1500-character source returns a normal happy path.
-- Polished `README.md` with hero/overview, stack table, ASCII architecture diagram, ADR index, quick-start, environment variable table (with proxy pattern note), and known limits / next steps.
+- Polished `README.md` with hero/overview, stack table, ASCII architecture diagram, ADR index, quick-start, environment variable table (with proxy pattern note), known limits / next steps, and a **Live Demo section** embedding the seven UI screenshots and linking to the source document (`assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`).
+- Added repo badges (License, Python 3.12, Next.js 16, Pydantic v2) to the top of `README.md`.
 - Added a `Project Complete Summary` section at the top of this document.
 
 ### Major Decisions

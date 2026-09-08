@@ -134,6 +134,42 @@ npm run dev
 
 The frontend proxies pipeline requests to the backend through a Next.js Route Handler at `frontend/app/api/pipeline/route.ts`. Set `BACKEND_URL=http://localhost:8000` in `frontend/.env.local` when running outside Docker.
 
+## Live Demo
+
+The screenshots below show a real end-to-end run against a long source document: [`assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`](assets-for-repurposing/Perplexity%20-%20The%20Complete%20Dungeons%20%26%20Dragons%20Handbook.md).
+
+> **Important truncation notice:** The source document was longer than the configured `MAX_SOURCE_CHARS` limit. The pipeline detected this, truncated the input for the LLM call, and **explicitly surfaced the truncation warning in the UI** so the user knows the output was derived from a shortened excerpt rather than the full document.
+
+### Home screen
+
+![Home screen](screenshots/local-asset-repurposing-home-screenshot.png)
+
+### Source input
+
+![Source text uploaded](screenshots/local-asset-repurposing-input.png)
+
+### Generating assets
+
+![Loading state](screenshots/local-asset-repurposing-generating-assets-loading.png)
+
+### Executive brief (with truncation warning)
+
+> **The truncation warning is visible at the top of this card.** This demonstrates the pipeline's fail-safe behavior: rather than silently processing a partial document, it tells the user that the source was truncated.
+
+![Executive brief with truncation warning](screenshots/local-source-truncated-and-executive-brief.png)
+
+### LinkedIn social snippet
+
+![LinkedIn social snippet](screenshots/local-asset-social-snippet-linkedin.png)
+
+### X / Twitter social snippet
+
+![X / Twitter social snippet](screenshots/local-asset-social-snippet-x-twitter.png)
+
+### Slide deck with speaker notes
+
+![Slide deck with bullets and speaker notes](screenshots/local-asset-slide-deck-bullets-with-speaker-notes.png)
+
 ## Usage
 
 Upload or paste source text into the frontend dashboard, or call the backend directly:
