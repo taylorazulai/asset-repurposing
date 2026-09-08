@@ -138,7 +138,7 @@ The frontend proxies pipeline requests to the backend through a Next.js Route Ha
 
 The screenshots below show a real end-to-end run against a long source document: [`assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`](assets-for-repurposing/Perplexity%20-%20The%20Complete%20Dungeons%20%26%20Dragons%20Handbook.md).
 
-> **Important truncation notice:** The source document was longer than the configured `MAX_SOURCE_CHARS` limit. The pipeline detected this, truncated the input for the LLM call, and **explicitly surfaced the truncation warning in the UI** so the user knows the output was derived from a shortened excerpt rather than the full document.
+> **Important truncation notice:** The screenshot below was captured when the backend `MAX_SOURCE_CHARS` default was `20000`. The pipeline detected the overflow, truncated the input for the LLM call, and **explicitly surfaced the truncation warning in the UI** so the user knows the output was derived from a shortened excerpt. The default cap has since been raised to `50000` characters, so the demo document (≈38,900 characters) now fits without truncation. The warning banner still appears for any source that exceeds the configured cap.
 
 ### Home screen
 
@@ -189,7 +189,7 @@ curl -X POST http://localhost:8000/pipeline \
 | `EDENAI_API_KEY` | — | Your EdenAI API key |
 | `EDENAI_BASE_URL` | `https://api.edenai.run/v3` | EdenAI OpenAI-compatible base URL |
 | `EDENAI_MODEL` | `google/gemini-3.8-flash` | Default chat model |
-| `MAX_SOURCE_CHARS` | `20000` | Maximum source characters sent to the extraction prompt |
+| `MAX_SOURCE_CHARS` | `50000` | Maximum source characters sent to the extraction prompt |
 | `CORS_ORIGINS` | `http://localhost:3000` | Comma-separated list of origins allowed by the backend CORS middleware |
 
 ### Frontend

@@ -7,7 +7,14 @@ from pipeline.utils import parse_json_response
 
 logger = logging.getLogger(__name__)
 
-EXTRACTION_PROMPT = """You are an expert document analyst. Read the source document below and extract the following Core Context fields as a JSON object:
+EXTRACTION_ROLE = (
+    "You are an expert content strategist with 8 years of experience analyzing "
+    "long-form marketing and editorial assets. First infer the document's tone, "
+    "themes, and intended audience from the source text, then adopt a domain-expert "
+    "persona accordingly. Return only valid JSON."
+)
+
+EXTRACTION_PROMPT = """Read the source document below and extract the following Core Context fields as a JSON object:
 
 - title: a concise title or headline theme (string)
 - themes: a list of key themes (3-7 items)
@@ -41,10 +48,7 @@ async def extract_core_context(source_text: str) -> CoreContext:
 
     prompt = EXTRACTION_PROMPT.format(source_text=source_text[: settings.MAX_SOURCE_CHARS])
     messages = [
-        {
-            "role": "system",
-            "content": "You are a helpful document analyst that returns only valid JSON.",
-        },
+        {"role": "system", "content": EXTRACTION_ROLE},
         {"role": "user", "content": prompt},
     ]
     response = await chat_completion(messages, temperature=0.3)

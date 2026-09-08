@@ -6,7 +6,15 @@ module.exports = {
     "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        cream:    '#FBF6E9',
+        heading:  '#065F46',
+        muted:    '#6B7280',
+        warnText: '#B91C1C',
+        warnBg:   '#FEE2E2',
+      },
+    },
   },
   plugins: [],
 };

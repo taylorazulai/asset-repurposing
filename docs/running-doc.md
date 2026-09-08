@@ -11,14 +11,14 @@ This document tracks the live progress of the Asset Repurposing Pipeline build. 
 **Date:** 2026-09-08
 **Status:** Portfolio-ready
 
-The Asset Repurposing Pipeline is a complete, end-to-end system that ingests a single source document and produces an executive brief, platform-specific social snippets, and a slide deck via a schema-enforced asynchronous DAG. All seven planned stages are finished:
+The Asset Repurposing Pipeline is a complete, end-to-end system that ingests a single source document and produces an executive brief, platform-specific social snippets, and a slide deck via a schema-enforced asynchronous DAG. Stages 1–7 are finished; Stage 8 is in progress and Stage 9 is planned in `docs/plan.md`:
 
 - **Backend:** FastAPI service with Pydantic models, EdenAI-powered extraction and three parallel generators, retry/timeout logic, and a full pytest suite.
 - **Frontend:** Next.js 16 dashboard with a server-side proxy route, typed API wrapper, and responsive asset/error UI.
 - **Integration:** Live verified with a real `EDENAI_API_KEY` against a 500+ word source; Docker Compose stack builds and runs both services; negative cases (min-length, truncation, small happy path) confirmed.
-- **Documentation:** Root README with hero/overview, stack table, ASCII architecture diagram, ADR index, quick-start, environment variable table, known limits, and a **Live Demo section with real UI screenshots** against a truncated source document. The source doc is referenced at `assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`. Four decision records in `docs/decisions/`.
+- **Documentation:** Root README with hero/overview, stack table, ASCII architecture diagram, ADR index, quick-start, environment variable table, known limits, and a **Live Demo section with real UI screenshots** against a truncated source document. The source doc is referenced at `assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`. Five decision records in `docs/decisions/` (including the new `2026-09-08-persona-driven-prompts.md`).
 
-Remaining next steps are documented in the README and include Cloud Run deployment, frontend test suite, and retry-specific unit tests.
+Remaining next steps are documented in the README and include Cloud Run deployment, frontend test suite, and retry-specific unit tests. Stage 9 will refine the slide-deck schema with tiered bullet hierarchy.
 
 ---
 
@@ -443,6 +443,57 @@ Proceed to **Stage 7: Integration & Verification**:
 
 ### Project Status
 
-Portfolio-ready. No further stages planned.
+Portfolio-ready as of Stage 7. Stages 8 and 9 are now planned in `docs/plan.md` and underway.
+
+---
+
+## Stage 8: UX & Prompt Polish
+
+**Status:** Completed
+
+### What Was Changed / Executed
+
+- **F1 — Frontend max-character gate (mirror backend cap):**
+  - Bumped `MAX_SOURCE_CHARS` default to `50000` in `backend/.env.example` and `backend/core/config.py`.
+  - Added a matching cap comment in `frontend/.env.example`.
+  - Refactored `frontend/app/components/UploadForm.tsx` to display a live character counter (`X / 50,000`), disable submit when over the cap, and show an inline "Source is too long" hint.
+- **F2 — Distinct CSS palette:**
+  - Added vanilla-cream / near-black / emerald-heading / muted-grey / red-warning palette to `frontend/styles/globals.css` and `frontend/tailwind.config.cjs`.
+  - Updated `frontend/app/layout.tsx` to use `bg-cream text-[#1A1A1A]`.
+  - Applied `text-heading`, `text-muted`, `text-warnText`, `bg-warnBg`, and related palette classes across `frontend/app/components/OutputCards.tsx`.
+  - Created `frontend/app/components/TruncationBanner.tsx` with an inline warning SVG and wired it into `OutputCards.tsx` so it renders whenever `core_context.truncated === true`.
+- **F3 — Persona-prefixed system prompts:**
+  - Replaced generic system roles in `backend/pipeline/extractors.py` and `backend/pipeline/generators.py` with fixed expert personas (content strategist, strategy consultant, B2B social copywriter, presentation designer).
+  - Added `_build_system_role()` helper that composes each fixed persona with a dynamic domain phrase derived from `core_context.tone`, `themes`, and `audience`.
+  - Created `docs/decisions/2026-09-08-persona-driven-prompts.md` ADR documenting the rationale.
+- Updated `README.md` to:
+  - Reflect the new `MAX_SOURCE_CHARS=50000` default.
+  - Footnote the Live Demo truncation screenshot as captured under the previous `20000` cap, noting that the demo document (≈38,900 characters) now fits without truncation.
+
+### Major Decisions
+
+- Chose `50000` characters as the unified cap because it keeps the demo D&D Handbook within budget while still bounding token spend (~12–13k tokens for typical encodings).
+- Kept the Tailwind palette small and explicit (five named colors) rather than exposing all CSS custom properties to Tailwind, keeping the theme surface narrow and easy to audit.
+- Used an inline SVG in `TruncationBanner.tsx` to avoid adding an icon library dependency for a single component.
+- Kept the prompt persona fragments as module-level string constants in `generators.py` and `extractors.py` so they are co-located with the prompts they modify and easy to tune without touching the LLM client.
+
+### Verification
+
+- `pytest -v` in `backend/` — **14 tests passed** after all changes.
+- `npm run build` in `frontend/` — **clean build** with `/api/pipeline` as a dynamic route.
+- Live `POST /pipeline` against the D&D Handbook (38,886 characters):
+  - `core_context.truncated: false` — the document now fits under the new `50000` cap.
+  - All three assets populated; `errors: {}`.
+  - Executive brief and social snippets adopted the gaming/tabletop domain (e.g., "Dungeon Master," "tabletop role-playing," "d20"), confirming the persona-driven prompt shift.
+- WCAG contrast spot-check: red-on-light-red pairing (`#B91C1C` on `#FEE2E2`) estimated at ~7.5:1, passing AA.
+
+### Deferred Tasks / Visual Artifacts
+
+- Updated UI screenshots in `screenshots/` are not captured in this environment. The new palette and the non-truncating D&D Handbook run should be reflected in the public demo screenshots by the reviewer before Stage 9 closeout (or when the portfolio is refreshed).
+- The `local-source-truncated-and-executive-brief.png` screenshot remains historically accurate but now documents behavior under the previous `20000` cap.
+
+### Immediate Next Steps
+
+**STOP.** Awaiting validation and / or reorientation before proceeding to **Stage 9: Schema & Slide Deck Refinement**.
 
 ---

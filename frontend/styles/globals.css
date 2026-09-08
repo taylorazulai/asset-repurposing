@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --color-bg:        #FBF6E9;  /* vanilla cream */
+  --color-text:      #1A1A1A;  /* near-black */
+  --color-heading:   #065F46;  /* emerald-800 */
+  --color-muted:     #6B7280;  /* gray-500 */
+  --color-warn-text: #B91C1C;  /* red-700 */
+  --color-warn-bg:   #FEE2E2;  /* red-100 */
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}

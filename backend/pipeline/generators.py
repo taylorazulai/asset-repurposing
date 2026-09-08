@@ -5,6 +5,22 @@ from pipeline.llm_client import chat_completion
 from pipeline.utils import parse_json_response
 
 
+EXECUTIVE_BRIEF_ROLE = (
+    "You are an expert strategy consultant with 10 years of experience writing "
+    "executive briefs at McKinsey-style firms."
+)
+
+SOCIAL_SNIPPETS_ROLE = (
+    "You are an expert B2B social copywriter with 5 years of experience crafting "
+    "LinkedIn and Twitter/X posts for technical and executive audiences."
+)
+
+SLIDE_DECK_ROLE = (
+    "You are an expert presentation designer with 10 years of experience building "
+    "decks for Fortune 500 leadership audiences."
+)
+
+
 EXECUTIVE_BRIEF_PROMPT = """Using the following Core Context, generate a one-page executive brief.
 Return ONLY valid JSON matching this exact schema:
 {{
@@ -50,6 +66,25 @@ Core context:
 """
 
 
+def _build_system_role(static_role: str, core_context: CoreContext) -> str:
+    """Compose a persona-aware system role with a fixed expert fragment and a
+    dynamic domain phrase inferred from the extracted core context.
+
+    Gracefully handles empty or missing tone, themes, or audience by falling
+    back to generic phrasing so the prompt never renders with blank clauses.
+    """
+    tone = core_context.tone.strip().lower() or "the provided source material"
+    themes = [t.strip() for t in core_context.themes[:3] if t.strip()]
+    themes_clause = f" on the themes of {', '.join(themes)}" if themes else ""
+    audience = core_context.audience.strip().lower() or "the intended readers"
+
+    domain_phrase = (
+        f"You are currently working with {tone} content{themes_clause}, "
+        f"targeting an audience of {audience}."
+    )
+    return f"{static_role} {domain_phrase} Return only valid JSON."
+
+
 async def generate_executive_brief(core_context: CoreContext) -> ExecutiveBrief:
     """Generate a one-page executive brief from the core context."""
     prompt = EXECUTIVE_BRIEF_PROMPT.format(
@@ -58,7 +93,7 @@ async def generate_executive_brief(core_context: CoreContext) -> ExecutiveBrief:
     messages = [
         {
             "role": "system",
-            "content": "You are a marketing strategist that returns only valid JSON.",
+            "content": _build_system_role(EXECUTIVE_BRIEF_ROLE, core_context),
         },
         {"role": "user", "content": prompt},
     ]
@@ -75,7 +110,7 @@ async def generate_social_snippets(core_context: CoreContext) -> List[SocialSnip
     messages = [
         {
             "role": "system",
-            "content": "You are a social media copywriter that returns only valid JSON.",
+            "content": _build_system_role(SOCIAL_SNIPPETS_ROLE, core_context),
         },
         {"role": "user", "content": prompt},
     ]
@@ -92,7 +127,7 @@ async def generate_slide_deck(core_context: CoreContext) -> SlideDeck:
     messages = [
         {
             "role": "system",
-            "content": "You are a presentation designer that returns only valid JSON.",
+            "content": _build_system_role(SLIDE_DECK_ROLE, core_context),
         },
         {"role": "user", "content": prompt},
     ]
