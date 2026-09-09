@@ -136,39 +136,31 @@ The frontend proxies pipeline requests to the backend through a Next.js Route Ha
 
 ## Live Demo
 
-The screenshots below show a real end-to-end run against a long source document: [`assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`](assets-for-repurposing/Perplexity%20-%20The%20Complete%20Dungeons%20%26%20Dragons%20Handbook.md).
+> **Live demo source:** The screenshots below show a real end-to-end run against [`assets-for-repurposing/Perplexity - The Complete Dungeons & Dragons Handbook.md`](assets-for-repurposing/Perplexity%20-%20The%20Complete%20Dungeons%20%26%20Dragons%20Handbook.md). The document is ≈38,900 characters, so it fits cleanly under the `MAX_SOURCE_CHARS=50000` default without truncation.
 
-> **Important truncation notice:** The screenshot below was captured when the backend `MAX_SOURCE_CHARS` default was `20000`. The pipeline detected the overflow, truncated the input for the LLM call, and **explicitly surfaced the truncation warning in the UI** so the user knows the output was derived from a shortened excerpt. The default cap has since been raised to `50000` characters, so the demo document (≈38,900 characters) now fits without truncation. The warning banner still appears for any source that exceeds the configured cap.
-
-### Home screen
+### 1. Home screen
 
 ![Home screen](screenshots/local-asset-repurposing-home-screenshot.png)
 
-### Source input
+### 2. Source input
 
 ![Source text uploaded](screenshots/local-asset-repurposing-input.png)
 
-### Generating assets
+### 3. Generating assets
 
 ![Loading state](screenshots/local-asset-repurposing-generating-assets-loading.png)
 
-### Executive brief (with truncation warning)
+### 4. Executive brief
 
-> **The truncation warning is visible at the top of this card.** This demonstrates the pipeline's fail-safe behavior: rather than silently processing a partial document, it tells the user that the source was truncated.
+![Executive brief](screenshots/local-asset-repurposing-executive-brief.png)
 
-![Executive brief with truncation warning](screenshots/local-source-truncated-and-executive-brief.png)
+### 5. Social snippets
 
-### LinkedIn social snippet
+![Social snippets](screenshots/local-asset-repurposing-social-snippets.png)
 
-![LinkedIn social snippet](screenshots/local-asset-social-snippet-linkedin.png)
+### 6. Slide deck with tiered bullets and speaker notes
 
-### X / Twitter social snippet
-
-![X / Twitter social snippet](screenshots/local-asset-social-snippet-x-twitter.png)
-
-### Slide deck with tiered bullets and speaker notes
-
-![Slide deck with tiered bullets and speaker notes](screenshots/local-asset-slide-deck-tiered-bullets-with-speaker-notes.png)
+![Slide deck with tiered bullets and speaker notes](screenshots/local-asset-repurposing-slide-deck-speaker-notes.png)
 
 ## Usage
 
