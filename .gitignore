@@ -56,5 +56,4 @@ pnpm-lock.yaml
 # Docker
 *.pid
 
-# Human misc. placed planning file
-docs/stages5-6.md
+
